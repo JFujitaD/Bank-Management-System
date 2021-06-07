@@ -13,3 +13,6 @@ bank_manager.o: bank_manager.c
 clean:
 	rm build/*.o build/main
 	@echo "\nEmptied out build folder."
+
+run:
+	./build/$(EXECUTABLE_NAME)

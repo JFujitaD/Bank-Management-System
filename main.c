@@ -1,8 +1,8 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "bank_manager.h"
 
 int main(){
-	printf("Hello World!");
+	
+	view_menu();
+
 	return 0;
 }
