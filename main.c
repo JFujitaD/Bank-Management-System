@@ -2,7 +2,7 @@
 
 int main(){
 	
-	start_system();
+	startSystem();
 
 	return 0;
 }

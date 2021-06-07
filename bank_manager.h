@@ -1,16 +1,16 @@
 #ifndef BANK_MANAGER_H
 #define BANK_MANAGER_H
 
-void start_system();
+void startSystem();
 
-void new_account();
+void newAccount();
 
 void transaction();
 
-void view_account();
+void viewAccount();
 
-void edit_account();
+void editAccount();
 
-void delete_account();
+void deleteAccount();
 
 #endif

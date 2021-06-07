@@ -2,15 +2,16 @@
 #include <stdio.h>
 #include "bank_manager.h"
 
-struct account {
+struct Account {
     float savings;
     float checking;
     char full_name[25];
 };
 
-struct account *accounts;
+struct Account *accounts;
+int activeAccounts = 0;
 
-void start_system(){
+void startSystem(){
     printf("BANK MANAGEMENT SYSTEM\n\n");
 
     printf("----MAIN MENU----\n");
@@ -28,7 +29,7 @@ void start_system(){
     switch (choice)
     {
     case 1:
-        new_account();
+        newAccount();
         break;
     case 2:
         break;
@@ -46,15 +47,16 @@ void start_system(){
     }
 }
 
-void new_account(){
-    struct account a;
+void newAccount(){
+    struct Account a;
     a.savings = 11000.99;
     a.checking = 29.65;
 
     // No accounts have been created
     if(accounts == NULL){
-        accounts = malloc(sizeof(struct account));
+        accounts = malloc(sizeof(struct Account));
         *accounts = a;
+        activeAccounts++;
     }
         
 }
