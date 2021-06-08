@@ -8,8 +8,10 @@ struct Account {
     char full_name[25];
 };
 
-struct Account *accounts;
-int activeAccounts = 0;
+struct Account *pAccounts;
+struct Account *pCurrent;
+int arraySize = 2;
+
 
 void startSystem(){
     printf("BANK MANAGEMENT SYSTEM\n\n");
@@ -52,11 +54,38 @@ void newAccount(){
     a.savings = 11000.99;
     a.checking = 29.65;
 
-    // No accounts have been created
-    if(accounts == NULL){
-        accounts = malloc(sizeof(struct Account));
-        *accounts = a;
-        activeAccounts++;
+    // There are no accounts.
+    if(pAccounts == NULL){
+        pAccounts = malloc(sizeof(struct Account) * arraySize);
+        pCurrent = pAccounts;
+        *pCurrent = a;
+
+        printf("INITIALIZED NEW ARRAY \n\n");
+    }
+    // There is not enough memory for another account.
+    else if(pCurrent + 1 == NULL){
+        arraySize *= 2;
+        pCurrent = pAccounts;                                   // Keep track of account head.
+
+        pAccounts = malloc(sizeof(struct Account) * arraySize); // Set head to new array.
+        struct Account *pTemp = pAccounts;                      
+
+        while (pCurrent != NULL){   // Iterate through old array and put it into new one.
+            *pTemp = *pCurrent;
+            pTemp += 1;
+            pCurrent += 1;
+        }
+        pCurrent = pTemp - 1;
+
+        free(pTemp);
+        printf("DOUBLED ARRAY TO %d\n\n", arraySize);
+    }
+    // There is enough room for another account.
+    else{
+        pCurrent++;
+        *pCurrent = a;
+
+        printf("ADDED TO ARRAY \n\n");
     }
         
 }

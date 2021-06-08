@@ -2,7 +2,8 @@
 
 int main(){
 	
-	startSystem();
+	while(1)
+		startSystem();
 
 	return 0;
 }
