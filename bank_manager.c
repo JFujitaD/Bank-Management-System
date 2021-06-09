@@ -3,22 +3,11 @@
 #include <string.h>
 #include "bank_manager.h"
 
-#define NAME_LIMIT 25
-#define ADDRESS_LIMIT 50
+LinkedList *pList = NULL;
 
-void emptyBuffer();
-
-struct Account {
-    float savings;
-    float checking;
-    char *pFullName;
-    char *pAddress;
-};
-
-struct Account *pAccounts;
-int currentIndex = 0;
-int arraySize = 2;
-
+void emptyBuffer(){
+     while (getchar() != '\n');  
+}
 
 void startSystem(){
     printf("\n\nBANK MANAGEMENT SYSTEM \n\n");
@@ -58,53 +47,43 @@ void startSystem(){
 }
 
 void newAccount(){
-    struct Account a;
-    a.savings = 0;
-    a.checking = 0;
-    a.pFullName = malloc(sizeof(char) * NAME_LIMIT);
-    a.pAddress = malloc(sizeof(char) * ADDRESS_LIMIT);
+    // Set new account up
+    Account *a;
+    a->savings = 0;
+    a->checking = 0;
+    a->pFullName = malloc(sizeof(char) * NAME_LIMIT);
+    a->pAddress = malloc(sizeof(char) * ADDRESS_LIMIT);
+    a->pNext = NULL;
 
     // Handle user input
     printf("\nPlease enter your account information. \n");
 
     printf("\tFull Name: ");
     emptyBuffer();
-    fgets(a.pFullName, NAME_LIMIT, stdin);
+    fgets(a->pFullName, NAME_LIMIT, stdin);
 
     printf("\tAddress: ");
-    fgets(a.pAddress, ADDRESS_LIMIT, stdin);
+    fgets(a->pAddress, ADDRESS_LIMIT, stdin);
 
-    // There are no accounts.
-    // Allocate space for 2 accounts.
-    if(pAccounts == NULL){
-        pAccounts = malloc(sizeof(a) * arraySize);
-        pAccounts[currentIndex++] = a;
-    }
-    // There is space for another account
-    else if(currentIndex < arraySize){
-        pAccounts[currentIndex++] = a;
-    }
-    // There is no more space for another account.
-    // Allocate double the size, copy over contents to new array.
-    else{
-        arraySize *= 2;
-        currentIndex = 0;
-        struct Account *pTemp = pAccounts;
-        pAccounts = malloc(sizeof(a) * arraySize);
-
-        while(currentIndex < arraySize / 2){
-            pAccounts[currentIndex] = pTemp[currentIndex];
-            currentIndex++;
-        }
-        pAccounts[currentIndex++] = a;
-        free(pTemp);
-    }
+    append(a);
 
     printf("\nAccount was successfully created. \nPress ENTER to continue.");
     emptyBuffer();
-    //printf("A: %d  S: %d", currentIndex, arraySize);
 }
 
-void emptyBuffer(){
-     while (getchar() != '\n');  
+void append(Account *a){
+    // Empty list
+    if(pList == NULL){
+        pList = malloc(sizeof(LinkedList));
+        pList->pHead = a;
+    }
+    // List is populated
+    else{
+        Account *pCurrent = pList->pHead;
+
+        while(pCurrent->pNext != NULL){
+            pCurrent = pCurrent->pNext;
+        }
+        pCurrent->pNext = a;
+    }
 }
