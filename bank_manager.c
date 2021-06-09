@@ -77,7 +77,7 @@ void newAccount(){
     // There are no accounts.
     // Allocate space for 2 accounts.
     if(pAccounts == NULL){
-        pAccounts = malloc(sizeof(struct Account) * arraySize);
+        pAccounts = malloc(sizeof(a) * arraySize);
         pAccounts[currentIndex++] = a;
     }
     // There is space for another account
@@ -90,7 +90,7 @@ void newAccount(){
         arraySize *= 2;
         currentIndex = 0;
         struct Account *pTemp = pAccounts;
-        pAccounts = malloc(sizeof(struct Account) * arraySize);
+        pAccounts = malloc(sizeof(a) * arraySize);
 
         while(currentIndex < arraySize / 2){
             pAccounts[currentIndex] = pTemp[currentIndex];
