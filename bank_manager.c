@@ -5,11 +5,11 @@
 struct Account {
     float savings;
     float checking;
-    char full_name[25];
+    char fullName[25];
 };
 
 struct Account *pAccounts;
-struct Account *pCurrent;
+int currentIndex = 0;
 int arraySize = 2;
 
 
@@ -27,6 +27,7 @@ void startSystem(){
     int choice;
     printf("Enter your choice: ");
     scanf("%d", &choice);
+    printf("\e[1;1H\e[2J");
     
     switch (choice)
     {
@@ -42,9 +43,10 @@ void startSystem(){
     case 5:
         break;
     case 6:
-        break;
-    
+        printf("\nThank you, come again!\n");
+        exit(0);
     default:
+        printf("\nInvalid choice. Please try again.\n\n");
         break;
     }
 }
@@ -57,35 +59,25 @@ void newAccount(){
     // There are no accounts.
     if(pAccounts == NULL){
         pAccounts = malloc(sizeof(struct Account) * arraySize);
-        pCurrent = pAccounts;
-        *pCurrent = a;
-
-        printf("INITIALIZED NEW ARRAY \n\n");
+        pAccounts[currentIndex++] = a;
     }
-    // There is not enough memory for another account.
-    else if(pCurrent + 1 == NULL){
-        arraySize *= 2;
-        pCurrent = pAccounts;                                   // Keep track of account head.
-
-        pAccounts = malloc(sizeof(struct Account) * arraySize); // Set head to new array.
-        struct Account *pTemp = pAccounts;                      
-
-        while (pCurrent != NULL){   // Iterate through old array and put it into new one.
-            *pTemp = *pCurrent;
-            pTemp += 1;
-            pCurrent += 1;
-        }
-        pCurrent = pTemp - 1;
-
-        free(pTemp);
-        printf("DOUBLED ARRAY TO %d\n\n", arraySize);
+    // There is space for another account
+    else if(currentIndex < arraySize){
+        pAccounts[currentIndex++] = a;
     }
-    // There is enough room for another account.
+    // There is no more space for another account.
     else{
-        pCurrent++;
-        *pCurrent = a;
+        arraySize *= 2;
+        currentIndex = 0;
+        struct Account *pTemp = pAccounts;
+        pAccounts = malloc(sizeof(struct Account) * arraySize);
 
-        printf("ADDED TO ARRAY \n\n");
+        while(currentIndex < arraySize / 2){
+            pAccounts[currentIndex] = pTemp[currentIndex];
+            currentIndex++;
+        }
+        currentIndex++;
+        free(pTemp);
     }
-        
+        printf("A: %d S: %d \n", currentIndex, arraySize);
 }
