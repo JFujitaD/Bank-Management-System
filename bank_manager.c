@@ -1,11 +1,18 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "bank_manager.h"
+
+#define NAME_LIMIT 25
+#define ADDRESS_LIMIT 50
+
+void emptyBuffer();
 
 struct Account {
     float savings;
     float checking;
-    char fullName[25];
+    char *pFullName;
+    char *pAddress;
 };
 
 struct Account *pAccounts;
@@ -14,20 +21,19 @@ int arraySize = 2;
 
 
 void startSystem(){
-    printf("BANK MANAGEMENT SYSTEM\n\n");
+    printf("\n\nBANK MANAGEMENT SYSTEM \n\n");
 
-    printf("----MAIN MENU----\n");
-    printf("1. Create new account\n");
-    printf("2. Create transaction\n");
-    printf("3. Check account\n");
-    printf("4. Update account information\n");
-    printf("5. Deactivate account\n");
-    printf("6. Exit\n\n");
+    printf("----MAIN MENU---- \n");
+    printf("1. Create new account \n");
+    printf("2. Create transaction \n");
+    printf("3. Check account \n");
+    printf("4. Update account information \n");
+    printf("5. Deactivate account \n");
+    printf("6. Exit \n\n");
 
     int choice;
     printf("Enter your choice: ");
     scanf("%d", &choice);
-    printf("\e[1;1H\e[2J");
     
     switch (choice)
     {
@@ -53,10 +59,23 @@ void startSystem(){
 
 void newAccount(){
     struct Account a;
-    a.savings = 11000.99;
-    a.checking = 29.65;
+    a.savings = 0;
+    a.checking = 0;
+    a.pFullName = malloc(sizeof(char) * NAME_LIMIT);
+    a.pAddress = malloc(sizeof(char) * ADDRESS_LIMIT);
+
+    // Handle user input
+    printf("\nPlease enter your account information. \n");
+
+    printf("\tFull Name: ");
+    emptyBuffer();
+    fgets(a.pFullName, NAME_LIMIT, stdin);
+
+    printf("\tAddress: ");
+    fgets(a.pAddress, ADDRESS_LIMIT, stdin);
 
     // There are no accounts.
+    // Allocate space for 2 accounts.
     if(pAccounts == NULL){
         pAccounts = malloc(sizeof(struct Account) * arraySize);
         pAccounts[currentIndex++] = a;
@@ -66,6 +85,7 @@ void newAccount(){
         pAccounts[currentIndex++] = a;
     }
     // There is no more space for another account.
+    // Allocate double the size, copy over contents to new array.
     else{
         arraySize *= 2;
         currentIndex = 0;
@@ -76,8 +96,15 @@ void newAccount(){
             pAccounts[currentIndex] = pTemp[currentIndex];
             currentIndex++;
         }
-        currentIndex++;
+        pAccounts[currentIndex++] = a;
         free(pTemp);
     }
-        printf("A: %d S: %d \n", currentIndex, arraySize);
+
+    printf("\nAccount was successfully created. \nPress ENTER to continue.");
+    emptyBuffer();
+    //printf("A: %d  S: %d", currentIndex, arraySize);
+}
+
+void emptyBuffer(){
+     while (getchar() != '\n');  
 }
