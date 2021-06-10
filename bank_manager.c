@@ -45,7 +45,7 @@ void startSystem(){
 
 void newAccount(){
     // Set new account up
-    Account *a;
+    Account *a = malloc(sizeof(Account));
     a->savings = 0;
     a->checking = 0;
     a->pFullName = malloc(sizeof(char) * NAME_LIMIT);
@@ -77,7 +77,6 @@ void append(Account *a){
     // List is populated
     else{
         Account *pCurrent = pList->pHead;
-
         while(pCurrent->pNext != NULL){
             pCurrent = pCurrent->pNext;
         }
@@ -96,10 +95,12 @@ void viewAccountList(){
     else{
         Account *pCurrent = pList->pHead;
         while(pCurrent->pNext != NULL){
-            printf("\tName: %s\n", pCurrent->pFullName);
+            printf("\t   Name: %s", pCurrent->pFullName);
+            printf("\tAddress: %s\n", pCurrent->pAddress);
             pCurrent = pCurrent->pNext;
         }
-        printf("\tName: %s\n", pCurrent->pFullName);
+        printf("\t   Name: %s", pCurrent->pFullName);
+        printf("\tAddress: %s", pCurrent->pAddress);
 
         printf("\nPress ENTER to continue.");
         getchar();
