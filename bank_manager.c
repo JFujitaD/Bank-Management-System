@@ -14,8 +14,8 @@ void startSystem(){
 
     printf("----MAIN MENU---- \n");
     printf("1. Create new account \n");
-    printf("2. Create transaction \n");
-    printf("3. Check account \n");
+    printf("2. Check account \n");
+    printf("3. Create transaction \n");
     printf("4. Update account information \n");
     printf("5. Get account list\n");
     printf("6. Deactivate account \n");
@@ -29,6 +29,10 @@ void startSystem(){
     {
     case 1:
         newAccount();
+        break;
+    case 2:
+        emptyBuffer();
+        viewAccount();
         break;
     case 5:
         emptyBuffer();
@@ -109,4 +113,41 @@ void viewAccountList(){
         printf("\nPress ENTER to continue.");
         getchar();
     }
+}
+
+Account* searchByName(char* name){
+    Account *nullAccount = NULL;
+
+    // List is empty
+    if(pList == NULL){
+        return nullAccount;
+    }
+    // List has values
+    else{
+        Account *pCurrent = pList->pHead;
+        while(pCurrent->pNext != NULL){
+            pCurrent = pCurrent->pNext;
+            if(strcmp(name, pCurrent->pFullName))
+                return pCurrent;
+        }
+        if(strcmp(name, pCurrent->pFullName))
+            return pCurrent;
+    }
+    return nullAccount;
+}
+
+void viewAccount(){
+    Account *a = searchByName("Julian Dean");
+
+    if(a == NULL){
+        printf("\nAccount not found \n");
+        printf("Press ENTER to continue.");
+        getchar();
+    }
+        
+    else{
+        printf("\nAccount was found %s\n", a->pFullName);
+        printf("Press ENTER to continue.");
+        getchar();
+    }  
 }

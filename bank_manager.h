@@ -26,9 +26,11 @@ void newAccount();
 
 void append(Account *a);
 
-void transaction();
+Account* searchByName(char* name);
 
 void viewAccount();
+
+void transaction();
 
 void editAccount();
 
