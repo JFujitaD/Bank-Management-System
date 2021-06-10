@@ -47,7 +47,7 @@ void newAccount(){
     // Set new account up
     Account *a = malloc(sizeof(Account));
     a->savings = 0;
-    a->checking = 0;
+    a->checking = 25.00;
     a->pFullName = malloc(sizeof(char) * NAME_LIMIT);
     a->pAddress = malloc(sizeof(char) * ADDRESS_LIMIT);
     a->pNext = NULL;
@@ -95,12 +95,16 @@ void viewAccountList(){
     else{
         Account *pCurrent = pList->pHead;
         while(pCurrent->pNext != NULL){
-            printf("\t   Name: %s", pCurrent->pFullName);
-            printf("\tAddress: %s\n", pCurrent->pAddress);
+            printf("\t    Name: %s", pCurrent->pFullName);
+            printf("\t Address: %s", pCurrent->pAddress);
+            printf("\tChecking: $%f\n", pCurrent->checking);
+            printf("\t Savings: $%f\n\n", pCurrent->savings);
             pCurrent = pCurrent->pNext;
         }
-        printf("\t   Name: %s", pCurrent->pFullName);
-        printf("\tAddress: %s", pCurrent->pAddress);
+        printf("\t    Name: %s", pCurrent->pFullName);
+        printf("\t Address: %s", pCurrent->pAddress);
+        printf("\tChecking: $%f\n", pCurrent->checking);
+        printf("\t Savings: $%f\n", pCurrent->savings);
 
         printf("\nPress ENTER to continue.");
         getchar();
