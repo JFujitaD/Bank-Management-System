@@ -32,6 +32,8 @@ void viewAccount();
 
 void editAccount();
 
+void viewAccountList();
+
 void deleteAccount();
 
 #endif

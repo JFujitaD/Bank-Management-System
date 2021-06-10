@@ -17,8 +17,9 @@ void startSystem(){
     printf("2. Create transaction \n");
     printf("3. Check account \n");
     printf("4. Update account information \n");
-    printf("5. Deactivate account \n");
-    printf("6. Exit \n\n");
+    printf("5. Get account list\n");
+    printf("6. Deactivate account \n");
+    printf("7. Exit \n\n");
 
     int choice;
     printf("Enter your choice: ");
@@ -29,15 +30,11 @@ void startSystem(){
     case 1:
         newAccount();
         break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
     case 5:
+        emptyBuffer();
+        viewAccountList();
         break;
-    case 6:
+    case 7:
         printf("\nThank you, come again!\n");
         exit(0);
     default:
@@ -68,7 +65,7 @@ void newAccount(){
     append(a);
 
     printf("\nAccount was successfully created. \nPress ENTER to continue.");
-    emptyBuffer();
+    getchar();
 }
 
 void append(Account *a){
@@ -85,5 +82,26 @@ void append(Account *a){
             pCurrent = pCurrent->pNext;
         }
         pCurrent->pNext = a;
+    }
+}
+
+void viewAccountList(){
+    printf("\nRegistered Accounts \n");
+
+    if(pList == NULL){
+        printf("\t0 accounts registered \n");
+        printf("\nPress ENTER to continue.");
+        getchar();
+    }
+    else{
+        Account *pCurrent = pList->pHead;
+        while(pCurrent->pNext != NULL){
+            printf("\tName: %s\n", pCurrent->pFullName);
+            pCurrent = pCurrent->pNext;
+        }
+        printf("\tName: %s\n", pCurrent->pFullName);
+
+        printf("\nPress ENTER to continue.");
+        getchar();
     }
 }
