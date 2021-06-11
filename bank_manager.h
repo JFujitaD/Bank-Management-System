@@ -30,12 +30,6 @@ void printAccount(Account *a);
 
 void viewAccount();
 
-void transaction();
-
-void editAccount();
-
 void viewAccountList();
-
-void deleteAccount();
 
 #endif

@@ -11,11 +11,8 @@ void startSystem(){
     printf("----MAIN MENU---- \n");
     printf("1. Create new account \n");
     printf("2. Check account \n");
-    printf("3. Create transaction \n");
-    printf("4. Update account information \n");
-    printf("5. Get account list\n");
-    printf("6. Deactivate account \n");
-    printf("7. Exit \n\n");
+    printf("3. Get account list\n");
+    printf("4. Exit \n\n");
 
     int choice;
     printf("Enter your choice: ");
@@ -30,10 +27,10 @@ void startSystem(){
     case 2:
         viewAccount();
         break;
-    case 5:
+    case 3:
         viewAccountList();
         break;
-    case 7:
+    case 4:
         printf("\nThank you, come again!\n");
         exit(0);
     default:
