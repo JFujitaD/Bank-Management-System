@@ -187,6 +187,7 @@ void newTransaction(Account *a){
         }
     } 
     printf("\nTransaction was successful.\n");  
+    printAccount(a);
     printf("Press ENTER to continue.");
     getchar();
     getchar();
