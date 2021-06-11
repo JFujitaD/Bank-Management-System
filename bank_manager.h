@@ -32,4 +32,6 @@ void viewAccount();
 
 void viewAccountList();
 
+void newTransaction();
+
 #endif

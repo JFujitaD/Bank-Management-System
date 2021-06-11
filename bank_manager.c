@@ -142,8 +142,13 @@ void viewAccount(){
     else{
         printf("\nAccount Information \n");
         printAccount(a);
-        printf("Press ENTER to continue.");
-        getchar();
+        
+        char *choice = malloc(sizeof(char) * 2);
+        printf("Make transaction? (y/n): ");
+        fgets(choice, 2, stdin);
+
+        if(!strcmp(choice, "y") || !strcmp(choice, "Y"))
+            newTransaction(a);
     }  
 
     free(pName);
@@ -152,6 +157,26 @@ void viewAccount(){
 void printAccount(Account *a){
     printf("\t    Name: %s", a->pFullName);
     printf("\t Address: %s", a->pAddress);
-    printf("\tChecking: $%f\n", a->checking);
-    printf("\t Savings: $%f\n\n", a->savings);
+    printf("\tChecking: $%.2f\n", a->checking);
+    printf("\t Savings: $%.2f\n\n", a->savings);
+}
+
+void newTransaction(Account *a){
+    printf("Savings or Checking? (s/c): ");
+
+    while(1){
+        getchar();
+        char *choice = malloc(sizeof(char) * 2);
+        fgets(choice, 2, stdin);
+
+        if(!strcmp(choice, "s") || !strcmp(choice, "S")){
+            break;
+        }
+        else if(!strcmp(choice, "c") || !strcmp(choice, "C")){
+            break;
+        }
+        else{
+            printf("Please enter \"s\" for savings, or \"c\" for checking: ");
+        }
+    }   
 }
