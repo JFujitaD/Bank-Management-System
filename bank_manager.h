@@ -26,7 +26,9 @@ void newAccount();
 
 void append(Account *a);
 
-Account* searchByName(char* name);
+Account* searchByName(char *name);
+
+void printAccount(Account *a);
 
 void viewAccount();
 

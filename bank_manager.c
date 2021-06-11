@@ -99,16 +99,10 @@ void viewAccountList(){
     else{
         Account *pCurrent = pList->pHead;
         while(pCurrent->pNext != NULL){
-            printf("\t    Name: %s", pCurrent->pFullName);
-            printf("\t Address: %s", pCurrent->pAddress);
-            printf("\tChecking: $%f\n", pCurrent->checking);
-            printf("\t Savings: $%f\n\n", pCurrent->savings);
+            printAccount(pCurrent);
             pCurrent = pCurrent->pNext;
         }
-        printf("\t    Name: %s", pCurrent->pFullName);
-        printf("\t Address: %s", pCurrent->pAddress);
-        printf("\tChecking: $%f\n", pCurrent->checking);
-        printf("\t Savings: $%f\n", pCurrent->savings);
+        printAccount(pCurrent);
 
         printf("\nPress ENTER to continue.");
         getchar();
@@ -147,21 +141,24 @@ void viewAccount(){
     Account *a = searchByName(pName);
 
     if(a == NULL){
-        printf("\nAccount not found \n");
+        printf("\nAccount not found. \n");
         printf("Press ENTER to continue.");
         getchar();
     }
         
     else{
-        printf("\nAccount was found \n");
-        printf("\t    Name: %s", a->pFullName);
-        printf("\t Address: %s", a->pAddress);
-        printf("\tChecking: $%f\n", a->checking);
-        printf("\t Savings: $%f\n\n", a->savings);
-
+        printf("\nAccount Information \n");
+        printAccount(a);
         printf("Press ENTER to continue.");
         getchar();
     }  
 
     free(pName);
+}
+
+void printAccount(Account *a){
+    printf("\t    Name: %s", a->pFullName);
+    printf("\t Address: %s", a->pAddress);
+    printf("\tChecking: $%f\n", a->checking);
+    printf("\t Savings: $%f\n\n", a->savings);
 }
