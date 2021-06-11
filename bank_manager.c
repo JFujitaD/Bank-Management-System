@@ -24,6 +24,7 @@ void startSystem(){
     int choice;
     printf("Enter your choice: ");
     scanf("%d", &choice);
+    getchar();
     
     switch (choice)
     {
@@ -31,18 +32,18 @@ void startSystem(){
         newAccount();
         break;
     case 2:
-        emptyBuffer();
         viewAccount();
         break;
     case 5:
-        emptyBuffer();
         viewAccountList();
         break;
     case 7:
         printf("\nThank you, come again!\n");
         exit(0);
     default:
-        printf("\nInvalid choice. Please try again.\n\n");
+        printf("\nInvalid choice. Please try again.\n");
+        printf("Press ENTER to continue.");
+        getchar();
         break;
     }
 }
@@ -60,7 +61,6 @@ void newAccount(){
     printf("\nPlease enter your account information. \n");
 
     printf("\tFull Name: ");
-    emptyBuffer();
     fgets(a->pFullName, NAME_LIMIT, stdin);
 
     printf("\tAddress: ");
@@ -92,7 +92,7 @@ void viewAccountList(){
     printf("\nRegistered Accounts \n");
 
     if(pList == NULL){
-        printf("\t0 accounts registered \n");
+        printf("\tThere are no accounts registered. \n");
         printf("\nPress ENTER to continue.");
         getchar();
     }
@@ -125,19 +125,26 @@ Account* searchByName(char* name){
     // List has values
     else{
         Account *pCurrent = pList->pHead;
+
+        if(!strcmp(name, pCurrent->pFullName))
+            return pCurrent;
         while(pCurrent->pNext != NULL){
             pCurrent = pCurrent->pNext;
-            if(strcmp(name, pCurrent->pFullName))
+            if(!strcmp(name, pCurrent->pFullName))
                 return pCurrent;
         }
-        if(strcmp(name, pCurrent->pFullName))
+        if(!strcmp(name, pCurrent->pFullName))
             return pCurrent;
     }
     return nullAccount;
 }
 
 void viewAccount(){
-    Account *a = searchByName("Julian Dean");
+    char *pName = malloc(sizeof(char) * NAME_LIMIT);
+
+    printf("\nSearch by name: ");
+    fgets(pName, NAME_LIMIT, stdin);
+    Account *a = searchByName(pName);
 
     if(a == NULL){
         printf("\nAccount not found \n");
@@ -146,8 +153,15 @@ void viewAccount(){
     }
         
     else{
-        printf("\nAccount was found %s\n", a->pFullName);
+        printf("\nAccount was found \n");
+        printf("\t    Name: %s", a->pFullName);
+        printf("\t Address: %s", a->pAddress);
+        printf("\tChecking: $%f\n", a->checking);
+        printf("\t Savings: $%f\n\n", a->savings);
+
         printf("Press ENTER to continue.");
         getchar();
     }  
+
+    free(pName);
 }
