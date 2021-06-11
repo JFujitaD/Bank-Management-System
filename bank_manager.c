@@ -163,6 +163,7 @@ void printAccount(Account *a){
 
 void newTransaction(Account *a){
     printf("Savings or Checking? (s/c): ");
+    float amount = 0;
 
     while(1){
         getchar();
@@ -170,13 +171,23 @@ void newTransaction(Account *a){
         fgets(choice, 2, stdin);
 
         if(!strcmp(choice, "s") || !strcmp(choice, "S")){
+            printf("Enter transaction amount: $");
+            scanf("%f", &amount);
+            a->savings += amount;
             break;
         }
         else if(!strcmp(choice, "c") || !strcmp(choice, "C")){
+            printf("Enter transaction amount: $");
+            scanf("%f", &amount);
+            a->checking += amount;
             break;
         }
         else{
             printf("Please enter \"s\" for savings, or \"c\" for checking: ");
         }
-    }   
+    } 
+    printf("\nTransaction was successful.\n");  
+    printf("Press ENTER to continue.");
+    getchar();
+    getchar();
 }
