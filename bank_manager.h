@@ -18,8 +18,6 @@ typedef struct LinkedList{
     Account *pHead;
 } LinkedList;
 
-void emptyBuffer();
-
 void startSystem();
 
 void newAccount();

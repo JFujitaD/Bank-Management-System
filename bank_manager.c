@@ -5,10 +5,6 @@
 
 LinkedList *pList = NULL;
 
-void emptyBuffer(){
-     while (getchar() != '\n');  
-}
-
 void startSystem(){
     printf("\n\nBANK MANAGEMENT SYSTEM \n\n");
 
